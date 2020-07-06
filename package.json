@@ -1,5 +1,5 @@
 {
-  "name": "udd-project-app",
+  "name": "udd-app",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

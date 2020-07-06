@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "udd-project-app"
+    }
+  },
+  "defaultProject": "udd-project-app",
+  "cli": {
+    "analytics": "70a8d25f-7f09-4c1e-8854-53aa6c89252c"
+  }
 }
