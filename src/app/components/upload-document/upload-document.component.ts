@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { SearchService } from 'src/app/services/search.service';
+import { MagazineService } from 'src/app/services/magazine.service';
+import { ArticleService } from 'src/app/services/article.service';
 import { ArticleDTO } from 'src/app/entities/article-dto';
 
 @Component({
@@ -12,19 +13,20 @@ import { ArticleDTO } from 'src/app/entities/article-dto';
 export class UploadDocumentComponent implements OnInit {
 
   naucneOblastiList = [];
+  magazinesList = [];
   private href: any;
   private fileField = null;
   private fileName = null;
-  workData: ArticleDTO = new ArticleDTO();
+  articleData: ArticleDTO = new ArticleDTO();
 
-  constructor(private searchService: SearchService) { }
+  constructor(private magazineService: MagazineService, private articleService: ArticleService) { }
 
   ngOnInit(): void {
 
-    this.searchService.getNaucneOblasti().subscribe(
+    this.magazineService.getMagazines().subscribe(
       res=>{
         console.log(res);
-        this.naucneOblastiList = res;
+        this.magazinesList = res;
       },
       error=>{
         console.log(error);
@@ -34,19 +36,18 @@ export class UploadDocumentComponent implements OnInit {
 
   submitWorkData() {
 
-    this.workData.file = this.fileField.toString();
-    this.workData.fileName = this.fileName.toString();
-    console.log(this.workData.fileName + ' FILE NAME !');
+    this.articleData.file = this.fileField.toString();
+    this.articleData.fileName = this.fileName.toString();
+    console.log(">>>>>>>>>>>>>>>>>>>", this.articleData.fileName + ' FILE NAME !');
 
-    // this.workService.submitWorkData(this.workData).subscribe( res => {
-    //       console.log(res);
-    //       this.toastr.successToastr('Success!');
-
-
-    //     }, err => {
-    //       this.toastr.errorToastr("Greska");
-    //     }
-    // );
+    this.articleService.submitArticleData(this.articleData).subscribe( 
+      res => {
+        console.log(res);
+        alert('Success!');
+      }, err => {
+        console.log("Greska");
+      }
+    );
   }
 
   fileChooserListener(files: FileList, field) {

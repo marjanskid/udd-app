@@ -1,8 +1,10 @@
 export class ArticleDTO {
     id: number;
     name: string;
+    author: string;
+    keyWords: string;
     articleAbstract: string;
-    scientificArea: string;
+    magazine: string;
     file: string;
     fileName: string;
 

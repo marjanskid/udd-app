@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +11,6 @@ import { Observable } from 'rxjs';
 export class SearchService {
 
   constructor(private http: HttpClient, private router: Router) { }
-
-  getNaucneOblasti(){
-    console.log("getNaucneOblasti");
-    return this.http.get(environment.apiUrl + 'search/scientificArea') as Observable<any>;
-  }
 
   search(parametar, fraza, tip){
     console.log(parametar + ' ' + fraza + ' ' + tip);

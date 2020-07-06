@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchService } from '../../services/search.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
+
+import { SearchService } from '../../services/search.service';
+import { ScientificAreaService } from '../../services/scientific-area.service';
 
 @Component({
   selector: 'app-search',
@@ -24,7 +26,8 @@ export class SearchComponent implements OnInit {
   private naucneOblasti = "";
   private sadrzaj = "";
 
-  constructor(private searchService: SearchService, private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private searchService: SearchService, 
+              private scientificAreaService: ScientificAreaService) {
 
     this.route.params.subscribe( params => {
       this.tipPretrage = params.type; 
@@ -39,7 +42,7 @@ export class SearchComponent implements OnInit {
     this.createForm();
     this.prikaziRezultate = false;
 
-    this.searchService.getNaucneOblasti().subscribe(
+    this.scientificAreaService.getScientificAreas().subscribe(
       res=>{
         console.log(res);
         this.naucneOblastiList = res;

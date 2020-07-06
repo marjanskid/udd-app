@@ -4,15 +4,33 @@
     </div>
     <div class="col-md-8 offset-md-3">
         <form name="workDataForm" #f="ngForm" (submit)="submitWorkData()" novalidate class="form-uploadData">
+            
             <div class="form-group">
-              <label for="title">Naslov</label>
+              <label for="name">Naslov</label>
               <input type="text"
-                     id="title"
+                     id="name"
                      class="form-control"
-                     name="title"
-                     placeholder="Naslov" [(ngModel)]="workData.name" />
+                     name="name"
+                     placeholder="Naslov" [(ngModel)]="articleData.name" />
             </div>
 
+            <div class="form-group">
+                <label for="author">Autor</label>
+                <input type="text"
+                       id="author"
+                       class="form-control"
+                       name="author"
+                       placeholder="Autor" [(ngModel)]="articleData.author" />
+              </div>
+
+            <div class="form-group">
+                <label for="keyWords">Ključne reči</label>
+                <input type="text"
+                       id="keyWords"
+                       class="form-control"
+                       name="keyWords"
+                       placeholder="Ključne reči" [(ngModel)]="articleData.keyWords" />
+              </div>
 
             <div class="form-group">
               <label for="abstract">Apstakt</label>
@@ -20,21 +38,28 @@
                      id="abstract"
                      class="form-control"
                      name="abstract"
-                     placeholder="Apstrakt" [(ngModel)]="workData.articleAbstract" />
+                     placeholder="Apstrakt" [(ngModel)]="articleData.articleAbstract" />
             </div>
 
             <div class="form-group">
-                <label for="naucneOblasti">Naučna oblast:</label>
-                <select name="naucneOblasti" multiple [(ngModel)]="workData.scientificArea" class="form-control">
-                    <option *ngFor="let val of naucneOblastiList" value={{val}}>
+                <label for="casopis">Časopis:</label>
+                <select name="casopis" [(ngModel)]="articleData.magazine" class="form-control">
+                    <option *ngFor="let val of magazinesList" value={{val}}>
                         {{val}}
                     </option>
                 </select>
             </div>
 
             <div class="form-group">
-              <input type="file" accept="application/pdf"  (change)="fileChooserListener($event.target.files, workData.file)">
+              <input type="file" accept="application/pdf"  (change)="fileChooserListener($event.target.files, articleData.file)">
             </div>
+
+            <br>
+
+            <button type="submit" class="btn btn-primary mr-1">
+                <i class="material-icons">get_app</i>
+                Dodaj rad
+            </button>
         </form>
     </div>
 </div>

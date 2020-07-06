@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { SearchService } from '../../services/search.service';
+import { ScientificAreaService } from '../../services/scientific-area.service';
+
 
 @Component({
   selector: 'app-advanced-search',
@@ -28,13 +30,14 @@ export class AdvancedSearchComponent implements OnInit {
   private naucneOblasti = "";
   private sadrzaj = "";
 
-  constructor(private searchService: SearchService) { }
+  constructor(private scientificAreaService: ScientificAreaService,
+              private searchService: SearchService) { }
 
   ngOnInit() {
 
     this.prikaziRezultate = false;
 
-    this.searchService.getNaucneOblasti().subscribe(
+    this.scientificAreaService.getScientificAreas().subscribe(
       res=>{
         console.log(res);
         this.naucneOblastiList = res;
