@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 
 import { SearchService } from '../../services/search.service';
 import { ScientificAreaService } from '../../services/scientific-area.service';
+import { ArticleService } from 'src/app/services/article.service';
 
 
 @Component({
@@ -17,11 +18,17 @@ export class AdvancedSearchComponent implements OnInit {
   radovi = [];
   private naucneOblastiList = [];
 
-  private nazivCasopisaOznacen = true;
-  private naslovRadaOznacen = true;
-  private autoriOznaceni = true;
-  private kljucniPojmoviOznaceni = true;
-  private sadrzajOznacen = true;
+  private nazivCasopisaOznacen: string;
+  private naslovRadaOznacen: string;
+  private autoriOznaceni: string;
+  private kljucniPojmoviOznaceni: string;
+  private sadrzajOznacen: string;
+
+  private frazaNazivCasopisa = false;
+  private frazaNaslovRada = false;
+  private frazaAutori = false;
+  private frazaKljucniPojmovi = false;
+  private frazaSadrzaj = false;
 
   private nazivCasopisa = "";
   private naslovRada = "";
@@ -31,7 +38,15 @@ export class AdvancedSearchComponent implements OnInit {
   private sadrzaj = "";
 
   constructor(private scientificAreaService: ScientificAreaService,
-              private searchService: SearchService) { }
+              private searchService: SearchService, private articleService: ArticleService) {
+    
+    this.nazivCasopisaOznacen = "true";
+    this.naslovRadaOznacen = "true";
+    this.autoriOznaceni = "true";
+    this.kljucniPojmoviOznaceni = "true";
+    this.sadrzajOznacen = "true";
+
+  }
 
   ngOnInit() {
 
@@ -88,17 +103,22 @@ export class AdvancedSearchComponent implements OnInit {
     console.log(temp);
 
     const o = {
-      naslovCasopisa: this.nazivCasopisa,
-      nazivCasopisaOznacen: this.nazivCasopisaOznacen,
-      naslov: this.naslovRada,
-      naslovRadaOznacen: this.naslovRadaOznacen,
-      autori: this.autori,
-      autoriOznaceni: this.autoriOznaceni,
-      kljucniPojmovi: this.kljucniPojmovi,
-      kljucniPojmoviOznaceni: this.kljucniPojmoviOznaceni,
-      tekst: this.sadrzaj,
-      sadrzajOznacen: this.sadrzajOznacen,
-      naucnaOblast: temp,
+      magazineName:  this.nazivCasopisa,
+      magazineNameSelected: this.nazivCasopisaOznacen === "true",
+      name: this.naslovRada,
+      nameSelected: this.naslovRadaOznacen === "true",
+      author: this.autori,
+      authorSelected: this.autoriOznaceni === "true",
+      keyWords: this.kljucniPojmovi,
+      keyWordsSelected: this.kljucniPojmoviOznaceni === "true",
+      articleFile: this.sadrzaj,
+      articleFileSelected: this.sadrzajOznacen === "true",
+      scientificField: temp,
+      phraseMagazinName: this.frazaNazivCasopisa,
+      phraseName: this.frazaNaslovRada,
+      phraseAuthor: this.frazaAutori,
+      phraseKeyWords: this.frazaKljucniPojmovi,
+      phraseArticleFile: this.frazaSadrzaj
     }
 
     console.log(o);
@@ -114,6 +134,21 @@ export class AdvancedSearchComponent implements OnInit {
       }
     );
 
+  }
+
+  downloadArticle(id) {
+
+    console.log('preuzmi rad id: ' + id);
+
+    this.articleService.downloadArticle(id).subscribe(
+      res => {
+        var blob = new Blob([res], {type: 'application/pdf'});
+        var url= window.URL.createObjectURL(blob);
+        window.open(url, "_blank");
+      }, err => {
+        alert("Error while download file");
+      }
+    );
   }
 
 }

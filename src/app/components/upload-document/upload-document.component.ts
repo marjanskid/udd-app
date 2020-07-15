@@ -36,16 +36,16 @@ export class UploadDocumentComponent implements OnInit {
 
   submitWorkData() {
 
-    this.articleData.file = this.fileField.toString();
+    this.articleData.articleFile = this.fileField.toString();
     this.articleData.fileName = this.fileName.toString();
     console.log(">>>>>>>>>>>>>>>>>>>", this.articleData.fileName + ' FILE NAME !');
 
     this.articleService.submitArticleData(this.articleData).subscribe( 
       res => {
         console.log(res);
-        alert('Success!');
+        alert('Uspesno ste dodali rad!');
       }, err => {
-        console.log("Greska");
+        console.log("Greska pri dodavanju rada");
       }
     );
   }

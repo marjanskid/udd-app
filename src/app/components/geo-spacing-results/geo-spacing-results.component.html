@@ -1,0 +1,22 @@
+<br>
+<br>
+<h3 style="text-align: center;">Geoprostorna pretraga</h3>
+<br>
+
+<div *ngIf="reviewers.length != 0">
+    <div *ngFor="let val of reviewers"  class="col-md-11 my-3 offset-md-1 mx-auto">
+        <div class="card">
+            <h5 class="card-header">{{val.name}}</h5>
+            <div class="card-body" >
+                <h5 class="card-title">Latitude:</h5><p class="card-text">{{val.magazineName}}</p>
+                <h5 class="card-title">Longitude:</h5><p class="card-text">{{val.articleAbstract}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="reviewers.length == 0" class="col-md-11 my-3 offset-md-1 mx-auto">
+    <div class="card">
+        <h5 class="card-header" style="text-align: center;">Trenutno nema recezenata koji ispunjavaju zadate parametre pretrage.</h5>
+    </div>
+</div>
+<button class="btn btn-primary offset-md-1" routerLink="/content">Nazad</button>

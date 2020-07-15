@@ -1,14 +1,14 @@
 <div *ngIf="prikaziRezultate && radovi.length != 0">
     <div *ngFor="let val of radovi"  class="col-md-11 my-3 offset-md-1 mx-auto">
         <div class="card">
-            <h5 class="card-header">{{val.naslov}}</h5>
+            <h5 class="card-header">{{val.name}}</h5>
             <div class="card-body" >
-                <h5 class="card-title">Časopis:</h5><p class="card-text">{{val.naslovCasopisa}}</p>
-                <h5 class="card-title">Apstrakt:</h5><p class="card-text">{{val.apstrakt}}</p>
-                <h5 class="card-title">Autori:</h5><p class="card-text">{{val.autori}}</p>
+                <h5 class="card-title">Časopis:</h5><p class="card-text">{{val.magazineName}}</p>
+                <h5 class="card-title">Apstrakt:</h5><p class="card-text">{{val.articleAbstract}}</p>
+                <h5 class="card-title">Autori:</h5><p class="card-text">{{val.author}}</p>
                 <h5 class="card-title">Sažetak:</h5><p class="card-text" [innerHtml]="val.highlight"></p>
-                <button *ngIf="val.openAccess" (click)="preuzmiRad(val.id)" class="btn btn-primary offset-md-10">Preuzmi</button>
-                <button *ngIf="!val.openAccess" (click)="kupiRad(val.id)" class="btn btn-primary offset-md-10">Kupi</button>
+                <button *ngIf="val.openAccess" (click)="downloadArticle(val.id)" class="btn btn-primary offset-md-10">Preuzmi</button>
+                <button *ngIf="!val.openAccess" (click)="buyArticle(val.id)" class="btn btn-primary offset-md-10">Kupi</button>
             </div>
         </div>
     </div>
@@ -18,7 +18,7 @@
         <h5 class="card-header" style="text-align: center;">Trenutno nema radova koji ispunjavaju zadate parametre pretrage.</h5>
     </div>
 </div>
-<button *ngIf="prikaziRezultate" class="btn btn-primary offset-md-1" (click)="back()">Nazad</button>
+<button *ngIf="prikaziRezultate" class="btn btn-primary offset-md-1" routerLink="/content">Nazad</button>
 
 <div class="bg-light col-md-6 offset-md-3 my-3 pb-3" *ngIf="!prikaziRezultate && tipPretrage!=0">
     <div class="text-center py-3">

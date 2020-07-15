@@ -23,4 +23,11 @@ export class ArticleService {
     return this.http.post(environment.apiUrl + 'article/submitArticleData', articleData);
   }
 
+  downloadArticle(articleId) {
+    const httpOptions = {
+      'responseType'  : 'arraybuffer' as 'json'
+    };
+    return this.http.get(environment.apiUrl + "article/download/".concat(articleId), httpOptions) as Observable<any>;
+  }
+
 }
